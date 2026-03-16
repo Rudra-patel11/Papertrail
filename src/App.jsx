@@ -6,6 +6,7 @@ import Papers from './pages/Papers';
 import GraphView from './pages/GraphView';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
+import Signup from "./pages/Signup";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/papers" element={<Papers />} />
         <Route path="/graph" element={<GraphView />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

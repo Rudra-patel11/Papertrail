@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Link as RouterLink } from "react-router-dom";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -8,16 +7,18 @@ import {
   Stack,
   TextField,
   Typography,
-} from '@mui/material';
+} from "@mui/material";
 
-function Login() {
+function Signup() {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
   });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -26,22 +27,30 @@ function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Login data:', formData);
+    console.log("Signup data:", formData);
   };
 
   return (
     <Container maxWidth="sm" sx={{ py: 6 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
         <Typography variant="h4" gutterBottom textAlign="center">
-          Login
+          Create Account
         </Typography>
 
-        <Typography variant="body1" textAlign="center" sx={{ mb: 3 }}>
-          Sign in to your PaperTrail account
+        <Typography textAlign="center" sx={{ mb: 3 }}>
+          Sign up to start using PaperTrail
         </Typography>
 
         <Box component="form" onSubmit={handleSubmit}>
           <Stack spacing={3}>
+            <TextField
+              label="Full Name"
+              name="name"
+              fullWidth
+              value={formData.name}
+              onChange={handleChange}
+            />
+
             <TextField
               label="Email"
               name="email"
@@ -61,18 +70,8 @@ function Login() {
             />
 
             <Button type="submit" variant="contained" size="large">
-              Login
+              Create Account
             </Button>
-            <Typography textAlign="center">
-               Don't have an account?{" "}
-               <Typography
-                 component={RouterLink}
-                 to="/signup"
-                 sx={{ textDecoration: "none", color: "primary.main", fontWeight: "bold" }}
-               >
-                 Sign up
-               </Typography>
-             </Typography>
           </Stack>
         </Box>
       </Paper>
@@ -80,4 +79,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;
