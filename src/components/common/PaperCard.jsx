@@ -5,11 +5,9 @@ function PaperCard({ title, authors, year }) {
     <Card sx={{ mb: 2 }}>
       <CardContent>
         <Typography variant="h6">{title}</Typography>
-
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
           {authors}
         </Typography>
-
         <Typography variant="caption">Published: {year}</Typography>
       </CardContent>
     </Card>

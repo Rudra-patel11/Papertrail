@@ -6,10 +6,7 @@ function SearchBar({ onSearch }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    if (onSearch) {
-      onSearch(query);
-    }
+    onSearch(query);
   };
 
   return (
@@ -21,7 +18,6 @@ function SearchBar({ onSearch }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-
         <Button type="submit" variant="contained">
           Search
         </Button>
