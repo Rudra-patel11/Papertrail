@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Container, Typography, Grid, Paper, Stack, Divider } from "@mui/material";
 import SearchBar from "../components/common/SearchBar";
 import PaperCard from "../components/common/PaperCard";
+import CitationGraph from "../components/graph/CitationGraph";
 
 const samplePapers = [
   {
@@ -120,6 +121,14 @@ function Dashboard() {
                 <Typography>
                   <strong>Abstract:</strong> {selectedPaper.abstract}
                 </Typography>
+
+                <Divider />
+
+                <Typography variant="h6">Citation Network Preview</Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Left side shows cited papers. Right side shows papers that reference the selected paper.
+                </Typography>
+                <CitationGraph selectedPaper={selectedPaper} />
               </Stack>
             ) : (
               <Typography>Select a paper to see details.</Typography>
