@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Typography, Grid, Paper, Stack } from "@mui/material";
+import { Container, Typography, Grid, Paper, Stack, Divider } from "@mui/material";
 import SearchBar from "../components/common/SearchBar";
 import PaperCard from "../components/common/PaperCard";
 
@@ -9,29 +9,48 @@ const samplePapers = [
     title: "Attention Is All You Need",
     authors: "Ashish Vaswani, Noam Shazeer, et al.",
     year: 2017,
+    abstract:
+      "This paper introduced the Transformer architecture and changed the way sequence modeling and language tasks are handled.",
+    citations: 120000,
+    topic: "Natural Language Processing",
   },
   {
     id: 2,
     title: "BERT: Pre-training of Deep Bidirectional Transformers",
     authors: "Jacob Devlin, Ming-Wei Chang, et al.",
     year: 2018,
+    abstract:
+      "This paper introduced BERT, a bidirectional language representation model that improved many NLP benchmarks.",
+    citations: 95000,
+    topic: "Language Models",
   },
   {
     id: 3,
     title: "Graph Neural Networks: A Review of Methods and Applications",
     authors: "Zonghan Wu, Shirui Pan, et al.",
     year: 2020,
+    abstract:
+      "This review summarizes graph neural network methods, applications, and research directions.",
+    citations: 18000,
+    topic: "Graph Learning",
   },
 ];
 
 function Dashboard() {
   const [results, setResults] = useState(samplePapers);
+  const [selectedPaper, setSelectedPaper] = useState(samplePapers[0]);
 
   const handleSearch = (query) => {
     const filtered = samplePapers.filter((paper) =>
       paper.title.toLowerCase().includes(query.toLowerCase())
     );
     setResults(filtered);
+
+    if (filtered.length > 0) {
+      setSelectedPaper(filtered[0]);
+    } else {
+      setSelectedPaper(null);
+    }
   };
 
   return (
@@ -51,7 +70,7 @@ function Dashboard() {
         </Grid>
 
         <Grid item xs={12} md={7}>
-          <Paper sx={{ p: 3, minHeight: 320 }}>
+          <Paper sx={{ p: 3, minHeight: 350 }}>
             <Typography variant="h6" gutterBottom>
               Search Results
             </Typography>
@@ -63,6 +82,8 @@ function Dashboard() {
                   title={paper.title}
                   authors={paper.authors}
                   year={paper.year}
+                  isSelected={selectedPaper?.id === paper.id}
+                  onClick={() => setSelectedPaper(paper)}
                 />
               ))
             ) : (
@@ -72,13 +93,37 @@ function Dashboard() {
         </Grid>
 
         <Grid item xs={12} md={5}>
-          <Paper sx={{ p: 3, minHeight: 320 }}>
+          <Paper sx={{ p: 3, minHeight: 350 }}>
             <Typography variant="h6" gutterBottom>
-              Graph Preview
+              Paper Details
             </Typography>
-            <Typography>
-              Citation graph preview will go here later.
-            </Typography>
+
+            {selectedPaper ? (
+              <Stack spacing={2}>
+                <Typography variant="h6">{selectedPaper.title}</Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {selectedPaper.authors}
+                </Typography>
+
+                <Divider />
+
+                <Typography>
+                  <strong>Year:</strong> {selectedPaper.year}
+                </Typography>
+                <Typography>
+                  <strong>Topic:</strong> {selectedPaper.topic}
+                </Typography>
+                <Typography>
+                  <strong>Citations:</strong> {selectedPaper.citations}
+                </Typography>
+
+                <Typography>
+                  <strong>Abstract:</strong> {selectedPaper.abstract}
+                </Typography>
+              </Stack>
+            ) : (
+              <Typography>Select a paper to see details.</Typography>
+            )}
           </Paper>
         </Grid>
       </Grid>
